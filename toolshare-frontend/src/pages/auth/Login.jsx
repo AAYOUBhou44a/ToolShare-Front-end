@@ -36,7 +36,7 @@ function Login() {
     try {
       const response = await authService.login({
         email,
-        password,
+        motDePasse: password,
       })
 
       const userData = response.user

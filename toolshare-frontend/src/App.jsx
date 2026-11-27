@@ -22,7 +22,7 @@ function HomeRedirect() {
     return <Navigate to="/login" replace />
   }
 
-  if (user?.role === 'admin') {
+  if (user?.role === 'ADMIN') {
     return <Navigate to="/admin" replace />
   }
 
@@ -44,7 +44,7 @@ function AppRoutes() {
       <Route path="/unauthorized" element={<Unauthorized />} />
 
       {/* Routes administrateur */}
-      <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+      <Route element={<ProtectedRoute allowedRoles={['ADMIN']} />}>
         <Route
           path="/admin"
           element={<AdminDashboard />}
