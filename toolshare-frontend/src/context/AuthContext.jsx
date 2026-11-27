@@ -4,9 +4,13 @@ const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem('user')
-
-    return savedUser ? JSON.parse(savedUser) : null
+    try {
+      const savedUser = localStorage.getItem('user')
+      return savedUser ? JSON.parse(savedUser) : null
+    } catch {
+      localStorage.removeItem('user')
+      return null
+    }
   })
 
   const [token, setToken] = useState(() => {
@@ -29,12 +33,14 @@ export function AuthProvider({ children }) {
     localStorage.removeItem('token')
   }
 
+  const isAuthenticated = !!token && !!user
+
   return (
     <AuthContext.Provider
       value={{
         user,
         token,
-        isAuthenticated: !!token,
+        isAuthenticated,
         login,
         logout,
       }}
